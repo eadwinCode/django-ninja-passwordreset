@@ -10,7 +10,7 @@ from django.contrib.auth.password_validation import (
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from ninja_extra import APIController, exceptions, route, router
+from ninja_extra import ControllerBase, api_controller, exceptions, http_post, http_get
 
 from .models import (
     ResetPasswordToken,
@@ -49,18 +49,18 @@ def _unicode_ci_compare(s1, s2):
     return normalized1.casefold() == normalized2.casefold()
 
 
-@router("password_reset/", tags=["Password Reset"])
-class ResetPasswordController(APIController):
+@api_controller("password_reset/", tags=["Password Reset"])
+class ResetPasswordController(ControllerBase):
     auto_import = False
 
-    @route.post("validate_token/", url_name="reset-password-validate")
+    @http_post("validate_token/", url_name="reset-password-validate")
     def validate_token(self, reset_token: ResetTokenSerializer):
         """
         An Api View which provides a method to verify that a token is valid
         """
         return self.create_response({"status": "OK"})
 
-    @route.post("confirm/", url_name="reset-password-confirm")
+    @http_post("confirm/", url_name="reset-password-confirm")
     def password_confirm(self, password_token: PasswordTokenSerializer):
         password = password_token.password
         token = password_token.token
@@ -97,7 +97,7 @@ class ResetPasswordController(APIController):
 
         return self.create_response({"status": "OK"})
 
-    @route.post("", url_name="reset-password-request")
+    @http_post("", url_name="reset-password-request")
     def password_request_token(self, email_data: EmailSerializer):
         email = email_data.email
 
