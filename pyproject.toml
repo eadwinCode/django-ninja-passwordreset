@@ -63,9 +63,9 @@ Source = "https://github.com/eadwinCode/django-ninja-passwordreset"
 
 [project.optional-dependencies]
 test = [
-    "black",
-    "isort",
-    "flake8",
+    "black==21.12b0",
+    "isort >=5.0.6,<6.0.0",
+    "flake8 >=3.8.3,<7.0.0",
     "pytest",
     "pytest-django",
     "pytest-cov",
