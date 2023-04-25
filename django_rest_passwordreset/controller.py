@@ -10,7 +10,7 @@ from django.contrib.auth.password_validation import (
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from ninja_extra import ControllerBase, api_controller, exceptions, http_post, http_get
+from ninja_extra import ControllerBase, api_controller, exceptions, http_get, http_post
 
 from .models import (
     ResetPasswordToken,
