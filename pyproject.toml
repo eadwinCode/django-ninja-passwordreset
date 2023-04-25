@@ -66,6 +66,7 @@ test = [
     "black==21.12b0",
     "isort >=5.0.6,<6.0.0",
     "flake8 >=3.8.3,<7.0.0",
+    "click==8.0.4",
     "pytest",
     "pytest-django",
     "pytest-cov",
