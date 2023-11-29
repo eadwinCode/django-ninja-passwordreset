@@ -23,8 +23,9 @@ class EmailSerializer(Schema):
 
 class PasswordValidateMixin(Schema):
     @model_validator(mode="before")
+    @classmethod
     def password_validate(cls, values):
-        token = values.get("token")
+        token = values._obj.get("token")
 
         # get token validation time
         password_reset_token_validation_time = (
