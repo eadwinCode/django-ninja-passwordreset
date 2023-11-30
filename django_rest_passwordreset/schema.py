@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404 as _get_object_or_404
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from ninja import Schema
-from pydantic import EmailStr, root_validator
+from pydantic import EmailStr, model_validator
 
 from . import models
 
@@ -22,9 +22,10 @@ class EmailSerializer(Schema):
 
 
 class PasswordValidateMixin(Schema):
-    @root_validator
+    @model_validator(mode="before")
+    @classmethod
     def password_validate(cls, values):
-        token = values.get("token")
+        token = values._obj.get("token")
 
         # get token validation time
         password_reset_token_validation_time = (
